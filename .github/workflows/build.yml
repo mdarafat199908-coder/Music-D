@@ -443,11 +443,14 @@ jobs:
           }
           EOF
 
-      - name: Build APK
-        run: gradle --no-daemon assembleDebug
+      - name: Check APK
+        run: |
+          echo "Looking for APK..."
+          find . -type f -name "*.apk" -print
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: MusicD-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: MusicDio-APK
+          path: "**/*.apk"
+          if-no-files-found: error
